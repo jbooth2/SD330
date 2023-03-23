@@ -1,0 +1,84 @@
+<style>
+    body{background-color: gray;}
+    #right{position: absolute; left:63%; width: 30%; top: 41%;}
+    #centerBlack{border: 5px solid; position: absolute; top: 20%; padding: 10px; width: 500px; height: 500px; left: 35%; background-color: black; color: blue;}
+    #centerWhite{border: 5px solid; position: absolute; top: 20%; padding: 10px; width: 300px; height: 200px; left: 20%; background-color: white; text-align: center; font-size: 80px;}
+    #bottomSearch{position: absolute; top: 94%; left: 33%;}
+    #searchButton{position:absolute; top:94%; left:67%;}
+    .raiseButton{background-color: red; width: 100px; height: 40px;}
+    .lowerButton{background-color: blue; width: 100px; height: 40px;}
+</style>
+
+<!Doctype HTML>
+<html>
+    <head>
+        <title>JS Refrigerator App</title>
+    </head>
+    <body onload="doStartClock()">
+        <div id ="right">
+            <h2>
+                <button id="raiseTemp" onclick="changeTemp(1)" class="raiseButton">Raise</button> <br /> <br />
+                <button id="lowerTemp" onclick="changeTemp(-1)"class="lowerButton">Lower</button> <br /> <br />
+                <button id="picButton" onclick="viewFridge()">See Fridge Contents</button>
+            </h2>
+        </div>
+        <div id="centerBlack">
+            <h2>
+                <input type="text" id="bottomSearch" placeholder="Search.." />
+                <button  id="searchButton" onclick="searchFun()">Search</button>
+                <div id="centerWhite">
+                        40
+                </div>
+            </h2>
+        </div>
+        <div id="timePar" style="left:45%; top: 85%; position: absolute; font-size: 40px; background-color: forestgreen;">
+            00:00:00
+        </div>
+    </body>
+
+</html>
+
+<script>
+    currentTemp = document.getElementById("centerWhite").innerHTML;
+    function changeTemp(x) {
+        newTemp = parseInt(currentTemp) + x;
+        document.getElementById("centerWhite").innerHTML = newTemp;
+        currentTemp = newTemp;
+    }
+
+    function viewFridge() {
+        if (document.getElementById("centerWhite").innerHTML.includes("img")) {
+            document.getElementById("centerWhite").innerHTML = currentTemp;
+        }
+        else {
+            document.getElementById("centerWhite").innerHTML = "<img src='https://grist.org/wp-content/uploads/2015/08/interior-of-refrigerator.jpg' width=300px height=200px>";
+        }
+    }
+
+    function doStartClock() {
+        setInterval(doClockTick, 1000);
+    }
+
+    function doClockTick() {
+        var currentDate = new Date();
+        var hours = currentDate.getHours();
+        var mins = currentDate.getMinutes();
+        var secs = currentDate.getSeconds();
+        var timeString = ('0' + hours).slice(-2) + ":" + ('0' + mins).slice(-2) + ":" + ('0' + secs).slice(-2);
+
+        var outputElement = document.getElementById("timePar");
+        outputElement.innerHTML = timeString;
+    }
+
+    function searchFun() {
+        searchContent = document.getElementById("bottomSearch").value;
+        cw = "<h2>Search reults for " + searchContent + "! <ul><li></li><li></li><li></li></ul></h2> <button onclick='reloadFun()'>Back</button>";
+
+        document.getElementById("centerBlack").innerHTML = cw;
+
+    }
+
+    function reloadFun() {
+        location.reload();
+    }
+</script>
