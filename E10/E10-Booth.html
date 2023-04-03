@@ -64,7 +64,7 @@
 
 <script>
     var currentTemp = 40;
-    var CelciusFar = "°F";
+    var CelciusFar = "F";
     var runningNum = 1;
     var intID=0;
     var music = new Audio("https://github.com/jbooth2/SD330/blob/main/E10/Resources/Cage%20The%20Elephant%20-%20Cold%20Cold%20Cold%20(Audio).mp3");
@@ -148,7 +148,7 @@
 
     function changeTemp(i) {
         testTemp = currentTemp + i;
-        if (CelciusFar === "°C") {
+        if (CelciusFar === "C") {
             if (testTemp === 10 || testTemp === 0) {
                 alert("outside temp range!");
 
