@@ -1,0 +1,243 @@
+<style>
+    html, body {margin: 0; height: 100%; overflow: hidden}
+    #right{position: absolute; left: 80%; width: 20%; height: 100%; background-color: blue;}
+    #center{position: absolute; left: 20%; width: 60%; height: 100%; background-color: gray;}
+    #left{position:absolute; left:0%; width:20%; height: 100%; background-color:blue;}
+    #triangle-up {position: absolute; width: 0; height: 0; border-left: 50px solid transparent; border-right: 50px solid transparent; border-bottom: 100px solid red; left: 45%; top: 30%;}
+    #triangle-down {position: absolute; width: 0; height: 0; border-left: 50px solid transparent; border-right: 50px solid transparent; border-top: 100px solid blue; left: 45%; top: 55%;}
+    #icicle{position: absolute; width: 50%; height: 20%; left: 25%; top: 35%;}
+    #spotify{position: absolute; width: 50%; height: 20%; left: 25%; top: 10%;}
+    #temp{position: absolute; left: 45%; top:45%; height: 10%; width: 10%; font-size: 48px;}
+    #powerButton{position: relative; left: 0%; top: 0%; height: 15%; width: 100%; background-color: green;}
+    #ShopText{position:relative; top: 0%; height: 5%; width: 100%; background-color: black; color: white; font-size: 36px;}
+    #shoppingList{position: relative; top:0%; height: 40%; width: 100%; background-color: teal; overflow: auto; font-size: 48px;}
+    #inputBox{position: relative; top: 0%; height: 5%; width: 100%; background-color: white;}
+    #clearList{position: relative; top: 0%; height: 13%; width: 100%; background-color: blue;}
+    #tvButton{position: absolute; top: 5%; left: 5%; height: 10%; width: 20%; }
+    #browserButton{position: absolute; top: 5%; left: 75%; height: 10%; width: 20%; }
+    #fridgeViewButton{position: absolute; top: 85%; left: 5%; height: 10%; width: 20%; }
+    #minTimerButton{position: absolute; top: 85%; left: 75%; height: 10%; width: 20%; }
+    #killPage{position: absolute; top: 60%; left: 25%; width: 50%; height: 10%;}
+                      
+</style>
+
+<!Doctype HTML>
+<html>
+    <head>
+        <title>JS Refrigerator App</title>
+    </head>
+    <body onload="loadPage()">
+        <div id="left">
+            <a class="weatherwidget-io" href="https://forecast7.com/en/40d71n74d01/new-york/" data-label_1="NEW YORK" data-label_2="WEATHER" data-theme="original">NEW YORK WEATHER</a>
+            <script>
+                !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = 'https://weatherwidget.io/js/widget.min.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'weatherwidget-io-js');
+            </script>
+            <div id="ShopText">Shopping List</div>
+            <div id="shoppingList"></div>
+            <input type="text" id="inputBox" name="item" value="Input Item..."/>
+            <button id="clearList" onclick="clearList()">Clear Shopping List</button>
+            <button id="powerButton" onclick="powerFun()">Power</button>
+        </div>
+            <div id="center">
+                <div id="temp" onclick="changeCF()"></div>
+                <div id="triangle-up" onclick="changeTemp(1)"></div>
+                <div id="triangle-down" onclick="changeTemp(-1)"></div>
+                <button id="tvButton" onclick="playVideo()">Watch TV</button>
+                <button id="browserButton" onclick="viewBrowser()">Browse Internet</button>
+                <button id="fridgeViewButton" onclick="viewFridge()">View Fridge Inside</button>
+                <button id="minTimerButton" onclick="doCountdown()">1 Minute Timer</button>
+            </div>
+            <div id="right">
+                <audio id="sound1" src="https://github.com/jbooth2/SD330/blob/main/E10/Resources/Cage%20The%20Elephant%20-%20Cold%20Cold%20Cold%20(Audio).mp3?raw=true" preload="auto"></audio>
+                <div>
+                    <img id="icicle" src="https://github.com/jbooth2/SD330/blob/main/E10/Resources/icicle%20image.jpg?raw=true" />
+                </div>
+                <div>
+                    <img id="spotify" src="https://github.com/jbooth2/SD330/blob/main/E10/Resources/spotify.png?raw=true" onclick="document.getElementById('sound1').play();" />
+                </div>
+                <div id="timePar" style="left:30%; top: 75%; position: absolute; font-size: 50px;" onclick="doStartClock()"></div>
+                <button id="killPage" onclick="killPage()">Back to Main Page</button>
+            </div>
+</body>
+
+</html>
+
+<script>
+    var currentTemp = 40;
+    var CelciusFar = "°F";
+    var runningNum = 1;
+    var intID=0;
+    var music = new Audio("https://github.com/jbooth2/SD330/blob/main/E10/Resources/Cage%20The%20Elephant%20-%20Cold%20Cold%20Cold%20(Audio).mp3");
+    var isOn = true;
+    var input = document.getElementById("inputBox");
+
+    /*currentTemp = document.getElementById("centerWhite").innerHTML;
+    function changeTemp(x) {
+        newTemp = parseInt(currentTemp) + x;
+        document.getElementById("centerWhite").innerHTML = newTemp;
+        currentTemp = newTemp;
+    }
+
+    function viewFridge() {
+        if (document.getElementById("centerWhite").innerHTML.includes("img")) {
+            document.getElementById("centerWhite").innerHTML = currentTemp;
+        }
+        else {
+            document.getElementById("centerWhite").innerHTML = "<img src='https://grist.org/wp-content/uploads/2015/08/interior-of-refrigerator.jpg' width=300px height=200px>";
+        }
+    }
+    */
+
+    function loadPage() {
+        doStartClock();
+        document.getElementById("temp").innerHTML = currentTemp + CelciusFar;
+    }
+
+    function powerFun() {
+        isOn = !isOn;
+        if (isOn) {
+            loadPage();
+            document.getElementById("temp").style.color = "black";
+            document.getElementById("center").style.backgroundColor = "gray";
+        }
+        else {
+            document.getElementById("temp").innerHTML = "Off";
+            document.getElementById("temp").style.color = "red";
+            document.getElementById("center").style.backgroundColor = "black";
+        }
+    }
+
+    function playAudio() {
+        music.play();
+    }
+    function doStartClock() {
+        if (intID > 0) {
+            clearInterval(intID);
+        }
+        
+        runningNum += 1;
+        if (runningNum % 2 == 0) {
+            intID = setInterval(doClockTick12, 1000);
+        }
+        else {
+            intID = setInterval(doClockTick24, 1000);
+        }
+    }
+
+    function doClockTick24() {
+        var currentDate = new Date();
+        var hours = currentDate.getHours();
+        var mins = currentDate.getMinutes();
+        var secs = currentDate.getSeconds();
+        var timeString = ('0' + hours).slice(-2) + ":" + ('0' + mins).slice(-2) + ":" + ('0' + secs).slice(-2);
+
+        var outputElement = document.getElementById("timePar");
+        outputElement.innerHTML = timeString;
+    }
+
+    function doClockTick12() {
+        var currentDate = new Date();
+        var hours = currentDate.getHours()%12;
+        var mins = currentDate.getMinutes();
+        var secs = currentDate.getSeconds();
+        var timeString = ('0' + hours).slice(-2) + ":" + ('0' + mins).slice(-2) + ":" + ('0' + secs).slice(-2);
+
+        var outputElement = document.getElementById("timePar");
+        outputElement.innerHTML = timeString;
+    }
+
+    function changeTemp(i) {
+        testTemp = currentTemp + i;
+        if (CelciusFar === "°C") {
+            if (testTemp === 10 || testTemp === 0) {
+                alert("outside temp range!");
+
+            }
+            else {
+                currentTemp += i;
+                document.getElementById("temp").innerHTML = currentTemp + CelciusFar;
+            }
+        }
+        else {
+            if (testTemp === 49 || testTemp === 33) {
+                alert("outside temp range!");
+
+            }
+            else {
+                currentTemp += i;
+                document.getElementById("temp").innerHTML = currentTemp + CelciusFar;
+            }
+        }
+        
+    }
+
+    function changeCF() {
+        if (CelciusFar === "°F") {
+            currentTemp -= 32;
+            currentTemp = currentTemp / 1.8;
+            currentTemp = parseInt(currentTemp);
+            CelciusFar = "°C";
+        }
+        else {
+            currentTemp = currentTemp * 1.8;
+            currentTemp += 32;
+            currentTemp = Math.ceil(currentTemp);
+            CelciusFar = "°F";
+            if (currentTemp == 49) {
+                currentTemp = 48;
+            }
+        }
+        loadPage();
+    }
+
+    input.addEventListener("keyup", function (e) {
+        if (e.key === "Enter" || e.keyCode === 13) {
+            document.getElementById("shoppingList").innerHTML += input.value + "</br>";
+            input.value = "";
+        }
+        
+    });
+
+    function clearList() {
+        document.getElementById("shoppingList").innerHTML = "";
+    }
+
+    function viewFridge() {
+        document.getElementById("center").innerHTML = '<img src = "https://github.com/jbooth2/SD330/blob/main/E10/Resources/fridge.jpeg?raw=true" style="width:100%; height:100%;"/ >';
+    }
+
+    function killPage() {
+        document.getElementById("center").innerHTML = '<div id="temp" onclick="changeCF()"></div> <div id = "triangle-up" onclick = "changeTemp(1)"></div > <div id="triangle-down" onclick="changeTemp(-1)"></div>' +
+            '<button id="tvButton">Watch TV</button> <button id="browserButton">Browse Internet</button> <button id="fridgeViewButton" onclick="viewFridge()">View Fridge Inside</button> <button id="minTimerButton" onclick="doCountdown()">1 Minute Timer</button>';
+        loadPage();
+    }
+
+    function playVideo(){
+        document.getElementById("center").innerHTML = '<video style="positon:absolute; width; 100%; height: 100%;" controls>  <source src = "https://github.com/jbooth2/SD330/blob/main/E10/Resources/FridgeCommercial.mp4?raw=true" type = "video/mp4">';     
+    }
+
+    function doCountdown() {
+        if (intID > 0) {
+            clearInterval(intID);
+        }
+        let time = 60;
+        intID = setInterval(function () {
+            time--;
+            timeString = "00:" + ('0' + time).slice(-2);
+            var outputElement = document.getElementById("timePar");
+            outputElement.innerHTML = timeString;
+
+            if (time == 0) {
+                a = new Audio("https://github.com/jbooth2/SD330/blob/main/E10/Resources/Alarm%20Beep%20Sound%20Effect%20-%20IC%20CE%20BE%20International%20Navistar%20ProStar%20School%20Bus%20Dump%20Truck%20Semi%20Truck.mp3?raw=true");
+                a.play();
+                clearInterval(intID);
+                doClockTick12();
+            }
+
+        }, 1000)
+    }
+
+    function viewBrowser() {
+        document.getElementById("center").innerHTML = '<img src = "https://github.com/jbooth2/SD330/blob/main/E10/Resources/Google_Chrome_Interface_Home_Page.png?raw=true" style="width:100%; height:100%;"/ >';
+    }
+</script>
