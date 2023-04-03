@@ -1,2 +1,2 @@
-# SD330
-Software Dev 330 Spring 2023
+# CMPT330
+System Design 330 Spring 2023
