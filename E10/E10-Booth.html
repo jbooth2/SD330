@@ -172,17 +172,17 @@
     }
 
     function changeCF() {
-        if (CelciusFar === "°F") {
+        if (CelciusFar === "F") {
             currentTemp -= 32;
             currentTemp = currentTemp / 1.8;
             currentTemp = parseInt(currentTemp);
-            CelciusFar = "°C";
+            CelciusFar = "C";
         }
         else {
             currentTemp = currentTemp * 1.8;
             currentTemp += 32;
             currentTemp = Math.ceil(currentTemp);
-            CelciusFar = "°F";
+            CelciusFar = "F";
             if (currentTemp == 49) {
                 currentTemp = 48;
             }
