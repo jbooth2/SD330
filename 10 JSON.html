@@ -1,0 +1,38 @@
+<!Doctype Html>
+<html>
+<body>
+    <p id="info"></p>
+
+    <script type="module">
+        let htmlString = "<h2> An introduction to JSON </h2>";
+
+        class Course {
+            constructor(CID, title, semester, professor) {
+                this.CID = CID;
+                this.title = title;
+                this.semester = semester;
+                this.professor = professor;
+            }
+        }
+
+        class Book {
+            constructor(ISBN, title, author, CID) {
+                this.ISBN = ISBN;
+                this.title = title;
+                this.author = author;
+                this.CID = CID;
+            }
+        }
+        
+        const SysDesign = new Course("330", "System Design", "Spring", "Tokash");
+        const Internetworking = new Course("306", "Internetworking", "Spring", "Cannistra");
+
+        const SysDesignBook = new Book("1234", "Intro to Design", "Harry Man", "330");
+        const InternetworkingBook = new Book("5678", "IntroNetworking", "Cobert Rannistra", "306");
+
+        htmlString += SysDesign.title + ", " + SysDesign.professor;
+
+        document.getElementById("info").innerHTML = htmlString;
+    </script>
+</body>
+</html>
