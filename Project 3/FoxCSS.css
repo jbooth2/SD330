@@ -1,0 +1,17 @@
+
+body{background-color: blue;}
+
+.navBar{position: absolute; width: 100%; height: 15%; background-color: blue; left: 0%; top: 0%; display: flex; flex-wrap: wrap;}
+.navButton {flex: 1; min-width: calc(100%/8); max-width: 100%; max-height: 100%; background-color: blue; border: none; font-size: 36px; border: 1px solid;}
+
+.navButton:hover{
+    background-color: lightblue;
+}
+
+.mainPage{position: absolute; width: 100%; height: 85%; left: 0%; top: 15%; background-color: darkblue;}
+.centerText{position: relative; width: 50%; left: 30%; top: 20%; font-size: 48px}
+
+#tableBook{position: absolute; top: 75%; left: 0%; width: 25%; height: 25%;}
+#bookShelf{position: absolute; top: 75%; left: 75%; width: 25%; height: 25%;}
+#coursesData{position: absolute; top: 15%; left: 40%; font-size: 32px;}
+#bookInfo{position: absolute; top: 15%; left: 30%; font-size: 48px;}

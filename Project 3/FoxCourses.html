@@ -1,0 +1,81 @@
+<!Doctype HTML>
+<html>
+<head>
+    <link rel="stylesheet" href="FoxCSS.css" />
+</head>
+<body>
+    <div class="navBar">
+        <img src="Home.png" class="navButton" onclick="window.location.href = 'FoxHome.html';"/>
+        <button class="navButton">View Your Courses</button>
+        <button class="navButton">Library</button>
+        <button class="navButton">Payment Information</button>
+        <button class="navButton">View Order History</button>
+        <button class="navButton">Information</button>
+        <img src="UserImage.png" class="navButton" />
+    </div>
+    <div class="mainPage">
+        <h2 style="font-size:48px; position:absolute; left:40%;">Course List</h2>
+        <div id="coursesData"></div>
+    </div>
+
+
+    <script>
+        let courses = {
+            "courses": [
+                {
+                    "cName": "System Design",
+                    "cInstructor": "Andrew Tokash",
+                    "textbook": [
+                        {
+                            "title": "Intro to System Design",
+                            "author": "Bruce Campbell"
+                        }
+                    ]
+                },
+                {
+                    "cName": "Internetworking",
+                    "cInstructor": "Robert Cannistra",
+                    "textbook": [
+                        {
+                            "title": "How to Network, Internally",
+                            "author": "Bruce Springsteen"
+                        }
+                    ]
+                },
+                {
+                    "cName": "Cryptography",
+                    "cInstructor": "Casimer DeCusatis",
+                    "textbook": [
+                        {
+                            "title": "70eefD2gU4$nL",
+                            "author": "Bruce Willis"
+                        }
+                    ]
+                },
+                {
+                    "cName": "Computer Ethics",
+                    "cInstructor": "Christopher Algozzine",
+                    "textbook": [
+                        {
+                            "title": "How to be Totally Ethical",
+                            "author": "Bruce Lee"
+                        }
+                    ]
+                }
+            ]
+        }
+
+        let courseDiv = document.getElementById("coursesData");
+        let courseArray = courses.courses;
+
+        courseDiv.innerHTML = "<ul>";
+
+            for (let i=0; i<courseArray.length; i++){
+                let href = 'FoxBooks.html?id=' + i;
+                courseDiv.innerHTML += "<a href=" + href + "><li>Course: " + courseArray[i].cName + "<br>Teacher: "  + courseArray[i].cInstructor + "</li></a><br>";
+            }
+
+        courseDiv.innerHTML += "</ul>";
+    </script>
+</body>
+</html>
